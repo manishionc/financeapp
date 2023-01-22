@@ -74,6 +74,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
+              Text(
+                'Hello World',
+                style: FlutterFlowTheme.of(context).bodyText1,
+              ),
             ],
           ),
         ),
