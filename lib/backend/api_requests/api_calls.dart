@@ -12,6 +12,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 class CreateUserCall {
   static Future<ApiCallResponse> call({
     String? iud = '',
+    String? file = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'CreateUser',
@@ -21,6 +22,7 @@ class CreateUserCall {
       headers: {},
       params: {
         'uid': iud,
+        'account_thumb': file,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,

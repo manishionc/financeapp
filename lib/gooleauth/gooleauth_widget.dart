@@ -307,6 +307,7 @@ class _GooleauthWidgetState extends State<GooleauthWidget> {
                                   context.goNamedAuth('HomePage', mounted);
                               apiResult1cc = await CreateUserCall.call(
                                 iud: currentUserUid,
+                                file: currentUserPhoto,
                               );
                               if ((apiResult1cc?.succeeded ?? true)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
