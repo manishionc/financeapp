@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -74,9 +75,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              Text(
-                'Hello World',
-                style: FlutterFlowTheme.of(context).bodyText1,
+              AuthUserStreamWidget(
+                builder: (context) => Text(
+                  currentUserDisplayName,
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ),
+              AuthUserStreamWidget(
+                builder: (context) => Image.network(
+                  currentUserPhoto,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
             ],
           ),

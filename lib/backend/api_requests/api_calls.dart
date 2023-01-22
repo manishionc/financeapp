@@ -13,6 +13,7 @@ class CreateUserCall {
   static Future<ApiCallResponse> call({
     String? iud = '',
     String? file = '',
+    String? accountThumb = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'CreateUser',
@@ -22,7 +23,7 @@ class CreateUserCall {
       headers: {},
       params: {
         'uid': iud,
-        'account_thumb': file,
+        'account_thumb': accountThumb,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,

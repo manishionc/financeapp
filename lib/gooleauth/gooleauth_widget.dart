@@ -323,6 +323,20 @@ class _GooleauthWidgetState extends State<GooleauthWidget> {
                                     backgroundColor: Color(0x00000000),
                                   ),
                                 );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'failed',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor: Color(0x00000000),
+                                  ),
+                                );
                               }
 
                               _navigate();
