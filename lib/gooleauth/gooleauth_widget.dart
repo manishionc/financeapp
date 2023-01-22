@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -7,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class GooleauthWidget extends StatefulWidget {
   const GooleauthWidget({Key? key}) : super(key: key);
@@ -16,7 +16,6 @@ class GooleauthWidget extends StatefulWidget {
 }
 
 class _GooleauthWidgetState extends State<GooleauthWidget> {
-  ApiCallResponse? apiResult1cc;
   TextEditingController? emailAddressController;
   TextEditingController? passwordController;
   late bool passwordVisibility;
@@ -42,6 +41,8 @@ class _GooleauthWidgetState extends State<GooleauthWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -297,51 +298,13 @@ class _GooleauthWidgetState extends State<GooleauthWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              Function() _navigate = () {};
                               GoRouter.of(context).prepareAuthEvent();
                               final user = await signInWithGoogle(context);
                               if (user == null) {
                                 return;
                               }
-                              _navigate = () =>
-                                  context.goNamedAuth('HomePage', mounted);
-                              apiResult1cc = await CreateUserCall.call(
-                                iud: currentUserUid,
-                                file: currentUserPhoto,
-                              );
-                              if ((apiResult1cc?.succeeded ?? true)) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Added to Pocketbase',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor: Color(0x00000000),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'failed',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor: Color(0x00000000),
-                                  ),
-                                );
-                              }
 
-                              _navigate();
-
-                              setState(() {});
+                              context.goNamedAuth('HomePage', mounted);
                             },
                             child: Container(
                               width: 50,

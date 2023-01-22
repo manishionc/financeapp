@@ -12,8 +12,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 class CreateUserCall {
   static Future<ApiCallResponse> call({
     String? iud = '',
-    String? file = '',
-    String? accountThumb = '',
+    FFLocalFile? accountThumb,
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'CreateUser',
