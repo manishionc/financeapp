@@ -9,6 +9,45 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
+/// Start tran Group Code
+
+class TranGroup {
+  static String baseUrl = 'https://fin.examplus.co.in';
+  static Map<String, String> headers = {};
+  static TransactionCall transactionCall = TransactionCall();
+}
+
+class TransactionCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'transaction',
+      apiUrl: '${TranGroup.baseUrl}/api/collections/transaction/records',
+      callType: ApiCallType.GET,
+      headers: {
+        ...TranGroup.headers,
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic amount(dynamic response) => getJsonField(
+        response,
+        r'''$.items[:].amount''',
+        true,
+      );
+  dynamic main(dynamic response) => getJsonField(
+        response,
+        r'''$.items''',
+        true,
+      );
+}
+
+/// End tran Group Code
+
 class CreateUserCall {
   static Future<ApiCallResponse> call({
     String? iud = '',

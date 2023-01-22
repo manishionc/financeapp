@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   FFLocalFile uploadedLocalFile = FFLocalFile(bytes: Uint8List.fromList([]));
 
   ApiCallResponse? apiResult2pk;
+  ApiCallResponse? apiResultaml;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -143,6 +145,52 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
+                ),
+              ),
+              Text(
+                functions
+                    .newCustomFunction(TranGroup.transactionCall
+                        .amount(
+                          (apiResultaml?.jsonBody ?? ''),
+                        )
+                        ?.toList())
+                    .toString(),
+                style: FlutterFlowTheme.of(context).bodyText1,
+              ),
+              FFButtonWidget(
+                onPressed: () async {
+                  apiResultaml = await TranGroup.transactionCall.call();
+                  if ((apiResultaml?.succeeded ?? true)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'got',
+                          style: TextStyle(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
+                        ),
+                        duration: Duration(milliseconds: 4000),
+                        backgroundColor: Color(0x00000000),
+                      ),
+                    );
+                  }
+
+                  setState(() {});
+                },
+                text: 'Button',
+                options: FFButtonOptions(
+                  width: 130,
+                  height: 40,
+                  color: FlutterFlowTheme.of(context).primaryColor,
+                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ],
