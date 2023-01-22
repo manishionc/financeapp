@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +16,7 @@ class GooleauthWidget extends StatefulWidget {
 }
 
 class _GooleauthWidgetState extends State<GooleauthWidget> {
+  ApiCallResponse? apiResult1cc;
   TextEditingController? emailAddressController;
   TextEditingController? passwordController;
   late bool passwordVisibility;
@@ -295,13 +297,36 @@ class _GooleauthWidgetState extends State<GooleauthWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
+                              Function() _navigate = () {};
                               GoRouter.of(context).prepareAuthEvent();
                               final user = await signInWithGoogle(context);
                               if (user == null) {
                                 return;
                               }
+                              _navigate = () =>
+                                  context.goNamedAuth('HomePage', mounted);
+                              apiResult1cc = await CreateUserCall.call(
+                                iud: currentUserUid,
+                              );
+                              if ((apiResult1cc?.succeeded ?? true)) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Added to Pocketbase',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor: Color(0x00000000),
+                                  ),
+                                );
+                              }
 
-                              context.goNamedAuth('HomePage', mounted);
+                              _navigate();
+
+                              setState(() {});
                             },
                             child: Container(
                               width: 50,
